@@ -1,8 +1,21 @@
-require('dotenv').config();
+let mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
 module.exports = {
-    mode: process.env.DEV_MODE,
-    devtool: false,
+    mode: mode,
+
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                }
+            }
+        ]
+    },
+
+    devtool: 'source-map',
     devServer: {
         contentBase: './dist'
     }
